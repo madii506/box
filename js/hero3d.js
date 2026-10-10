@@ -112,6 +112,7 @@ export function hero3d(host, { reduced = false } = {}) {
     renderer.render(scene, camera);
   };
   if (reduced) { frame(t0 + 5200); return true; }
+  frame(performance.now()); // first frame right away, even before the tab is visible
   const loop = now => { if (visible && !document.hidden) frame(now); requestAnimationFrame(loop); };
   requestAnimationFrame(loop);
   return true;

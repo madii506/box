@@ -1,5 +1,6 @@
 /* Worker: search for a mint keypair whose address ends with a suffix. The key never leaves this browser. */
 let ok = true;
+self.window = self; // the bundle publishes itself on window; a worker has no window
 try { importScripts('/vendor/solana-lite.js'); } catch (e) { ok = false; }
 onmessage = e => {
   const suffix = String(e.data && e.data.suffix || 'box');

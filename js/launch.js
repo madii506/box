@@ -101,7 +101,7 @@ function startVanity() {
   const n = Math.max(1, Math.min(6, (navigator.hardwareConcurrency || 4) - 1));
   let tried = 0; const t0 = performance.now();
   for (let i = 0; i < n; i++) {
-    const w = new Worker('/js/vanity.js?v=1');
+    const w = new Worker('/js/vanity.js?v=2');
     w.onmessage = e => {
       const d = e.data;
       if (d.error) { stopVanity(); $('#vanityState').textContent = 'Not available in this browser. A random address will be used.'; return; }
