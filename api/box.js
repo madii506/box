@@ -528,7 +528,7 @@ async function coin(mintStr) {
     const m = new PublicKey(mint);
     const [{ global }, ark] = await Promise.all([pumpState(), boxInfo().catch(() => ({ live: false }))]);
     const [bcInfo, mintInfo] = await rpc(c => c.getMultipleAccountsInfo([bondingCurvePda(m), m]));
-    if (!bcInfo) throw http(404, 'No pump.fun bonding curve for this mint.');
+    if (!bcInfo || !bcInfo.data || bcInfo.data.length < 49) throw http(404, 'This is not a pump.fun coin (no bonding curve for this mint).');
     const bc = PUMP_SDK.decodeBondingCurve(bcInfo);
     const qStr = bc.quoteMint.toBase58();
     const pm = bc.quoteMint.equals(PublicKey.default) ? { symbol: 'SOL', usd: await solUsd().catch(() => null), main: false } : (await pairMeta([qStr]))[qStr];
@@ -624,7 +624,7 @@ async function feeIxs(user, units, inSol, tokenMint, feeTo = FEE_WALLET) {
 }
 async function quoteOf(mint) {
   const [ci] = await rpc(c => c.getMultipleAccountsInfo([bondingCurvePda(mint)]));
-  if (!ci) throw http(404, 'No pump.fun curve for this coin.');
+  if (!ci || !ci.data || ci.data.length < 49) throw http(404, 'No pump.fun curve for this coin.');
   const bc = PUMP_SDK.decodeBondingCurve(ci);
   return bc.quoteMint;
 }
