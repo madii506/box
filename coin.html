@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOX · Coin</title>
+<meta name="description" content="A coin born in the box: its qubit, its quantum measurement, its market.">
+<meta name="theme-color" content="#050507">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/icon-32.png?v=1"><link rel="icon" type="image/png" sizes="64x64" href="/img/icon-64.png?v=1"><link rel="apple-touch-icon" href="/img/icon-180.png?v=1">
+<meta property="og:title" content="BOX · Coin"><meta property="og:description" content="Two coins go in. One comes out. A real quantum computer decides."><meta property="og:image" content="/img/og.png"><meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/img/og.png">
+<link rel="preload" href="/fonts/inter-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/box.css?v=1">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="/" aria-label="BOX home"><span data-mark></span>BOX</a>
+  <nav class="links"><a href="/chips" data-page="chips">Chips</a><a href="/launch" data-page="launch">Launch</a><a href="/board" data-page="board">Board</a><a href="/graveyard" data-page="graveyard">Graveyard</a><a href="/#box">The box</a><a href="/#token">$BOX</a><a href="/docs" data-page="docs">Docs</a></nav>
+  <div class="nav-r"><button class="ca" id="caChip" hidden></button><button class="btn wbtn" id="wBtn">Connect</button><button class="burger" aria-label="Menu"><span></span></button></div>
+</div></header>
+<main>
+
+<section class="cp">
+  <div class="wrap">
+    <div id="cpHead"></div>
+    <div class="cp-grid">
+      <div class="grid" style="gap:16px">
+        <div class="grid g4" id="cpStats"></div>
+        <div class="card pad qcard" id="cpQubit"></div>
+        <div class="card pad"><div class="fsec-h" style="margin-bottom:10px"><b id="chartTitle">Price</b><span id="chartNote">recent trades</span></div><div class="chart" id="chart"><canvas id="chartCv"></canvas><div class="tip" id="tip"></div></div></div>
+        <div class="grid g2">
+          <div class="card pad"><div class="fsec-h" style="margin-bottom:8px"><b>Holder rewards</b><span>pump.fun</span></div><div id="cpRewards"></div></div>
+          <div class="card pad"><div class="fsec-h" style="margin-bottom:4px"><b>Verified on-chain</b><span>live</span></div><ul class="checks" id="cpChecks"></ul></div>
+        </div>
+        <div class="card pad"><div class="fsec-h" style="margin-bottom:8px"><b>Recent trades</b><span id="trN"></span></div><div class="tr-list" id="cpTrades"></div></div>
+      </div>
+      <aside class="cp-side" data-stagger>
+        <div class="card pad grid" style="gap:14px" id="tradeBox">
+          <div class="seg" id="side"><button class="on" data-s="buy">Buy</button><button data-s="sell">Sell</button></div>
+          <div class="seg" id="via"><button class="on" data-v="SOL">with SOL</button><button data-v="PAIR">with $PAIR</button></div>
+          <div class="inrow"><input id="amt" inputmode="decimal" value="0.1" aria-label="Amount"><span class="unit" id="amtUnit">SOL</span></div>
+          <div class="quick" id="quick"></div>
+          <div class="sum"><div><span>You get about</span><b id="qOut">—</b></div><div><span>Route</span><b id="qRoute">—</b></div><div><span>Slippage</span><b><select id="slip" class="mono" style="background:transparent;border:0;color:inherit"><option>1</option><option selected>5</option><option>10</option><option>20</option></select>%</b></div></div>
+          <button class="btn gold lg block" id="tGo">Buy</button>
+          <span class="mu" style="font-size:12.5px">One transaction through pump.fun's multi-hop swap. Simulated before you sign.</span>
+        </div>
+        <div class="card pad"><div class="fsec-h" style="margin-bottom:10px"><b>Top holders</b><span id="hN"></span></div><div class="hold" id="cpHolders"></div></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-row"><span class="mono" style="font-size:12px;letter-spacing:.14em">BOX · SCHRÖDINGER'S LAUNCHPAD · OPENED BY REAL IBM QUANTUM COMPUTERS</span><nav><a href="/chips">Chips</a><a href="/launch">Launch</a><a href="/board">Board</a><a href="/graveyard">Graveyard</a><a href="/docs">Docs</a><a data-x-link hidden target="_blank" rel="noopener">X</a><a data-pump-link hidden target="_blank" rel="noopener">pump.fun</a></nav></div>
+    <div class="big-word" aria-hidden="true">BOX</div>
+  </div>
+</footer>
+<script src="/vendor/solana-lite.js" defer></script>
+<script type="module" src="/js/coin.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOX · Open a box</title>
+<meta name="description" content="Make two versions of your coin, claim a real qubit, and let an IBM quantum computer decide which one launches on pump.fun.">
+<meta name="theme-color" content="#050507">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/icon-32.png?v=1"><link rel="icon" type="image/png" sizes="64x64" href="/img/icon-64.png?v=1"><link rel="apple-touch-icon" href="/img/icon-180.png?v=1">
+<meta property="og:title" content="BOX · Open a box"><meta property="og:description" content="Two coins go in. One comes out. A real quantum computer decides."><meta property="og:image" content="/img/og.png"><meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/img/og.png">
+<link rel="preload" href="/fonts/inter-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/box.css?v=1">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="/" aria-label="BOX home"><span data-mark></span>BOX</a>
+  <nav class="links"><a href="/chips" data-page="chips">Chips</a><a href="/launch" data-page="launch">Launch</a><a href="/board" data-page="board">Board</a><a href="/graveyard" data-page="graveyard">Graveyard</a><a href="/#box">The box</a><a href="/#token">$BOX</a><a href="/docs" data-page="docs">Docs</a></nav>
+  <div class="nav-r"><button class="ca" id="caChip" hidden></button><button class="btn wbtn" id="wBtn">Connect</button><button class="burger" aria-label="Menu"><span></span></button></div>
+</div></header>
+<main>
+<section class="lp">
+  <div class="wrap">
+    <div class="sec-h" style="margin-bottom:28px" data-r><span class="kick" id="lpKick">Open a box</span><h1 class="h2">Two coins go in.</h1><p id="lpSub">Make two versions of your coin, claim a real qubit, and let IBM's quantum hardware decide which one is born on pump.fun. Your wallet signs; nothing else touches your keys.</p></div>
+    <div class="lp-grid">
+      <form class="form" id="form" autocomplete="off" onsubmit="return false" data-stagger>
+        <div class="card fsec">
+          <div class="fsec-h"><span class="n">01</span><b>Two versions</b><span>both exist until the box opens</span></div>
+          <div class="vgrid"><div class="card vcard" id="vA" data-k="A">
+          <div class="vhead"><span class="vk">A</span><b>Version A</b><span class="mu mono" style="font-size:11px">if the qubit reads 0</span></div>
+          <label class="drop sm" id="dropA"><div class="pv" id="pvA">512²</div><div><b>Picture</b><span>PNG · JPG · GIF · WEBP</span></div><input type="file" id="fileA" accept="image/png,image/jpeg,image/gif,image/webp" aria-label="Picture for version A"></label>
+          <div class="two"><div class="field"><label for="nA">Name</label><input class="inp" id="nA" maxlength="32" placeholder="Cat in a Box"></div><div class="field"><label for="sA">Ticker</label><input class="inp" id="sA" maxlength="10" placeholder="ALIVE"></div></div>
+        </div><div class="card vcard" id="vB" data-k="B">
+          <div class="vhead"><span class="vk">B</span><b>Version B</b><span class="mu mono" style="font-size:11px">if the qubit reads 1</span></div>
+          <label class="drop sm" id="dropB"><div class="pv" id="pvB">512²</div><div><b>Picture</b><span>PNG · JPG · GIF · WEBP</span></div><input type="file" id="fileB" accept="image/png,image/jpeg,image/gif,image/webp" aria-label="Picture for version B"></label>
+          <div class="two"><div class="field"><label for="nB">Name</label><input class="inp" id="nB" maxlength="32" placeholder="Ghost Cat"></div><div class="field"><label for="sB">Ticker</label><input class="inp" id="sB" maxlength="10" placeholder="DEAD"></div></div>
+        </div></div>
+        </div>
+        <div class="card fsec">
+          <div class="fsec-h"><span class="n">02</span><b>Claim a qubit</b><span id="qSub">pick a free one</span></div>
+          <div class="seg" id="chipTabs"></div>
+          <div class="chipwrap" id="pickMap"></div>
+          <div class="qinfo" id="qInfo"><span class="mu">Tap a free qubit on the chip. Brighter qubits hold a quantum state longer.</span></div>
+        </div>
+        <div class="card fsec">
+          <div class="fsec-h"><span class="n">03</span><b>Story and links</b><span>optional · shared by both versions</span></div>
+          <div class="field"><label for="fDesc">Description</label><textarea class="inp" id="fDesc" maxlength="600" placeholder="One or two lines about your coin."></textarea></div>
+          <div class="three"><div class="field"><label for="fX">X</label><input class="inp" id="fX" placeholder="https://x.com/…"></div><div class="field"><label for="fTg">Telegram</label><input class="inp" id="fTg" placeholder="https://t.me/…"></div><div class="field"><label for="fWeb">Website</label><input class="inp" id="fWeb" placeholder="https://…"></div></div>
+        </div>
+        <div class="card fsec">
+          <div class="fsec-h"><span class="n">04</span><b>Dev buy</b><span id="capLbl">optional · max 1.0 SOL</span></div>
+          <div class="inrow"><input id="fDev" inputmode="decimal" placeholder="0.0" aria-label="Dev buy in SOL"><span class="unit">SOL</span></div>
+          <div class="quick" id="devQuick"><button data-v="0.1">0.1 SOL</button><button data-v="0.25">0.25 SOL</button><button data-v="0.5">0.5 SOL</button><button data-v="1">1.0 SOL</button></div>
+          <span class="mu" style="font-size:13px">Bought right after the launch in one swap: SOL → $BOX → your coin.</span>
+        </div>
+        <div class="card fsec">
+          <div class="fsec-h"><span class="n">05</span><b>Contract address</b></div>
+          <label class="toggle"><span><b style="display:block;font-size:15px">End the address in "box"</b><span class="mu" style="font-size:13px">Your browser searches for a matching key on your own device. A few seconds.</span></span><input type="checkbox" id="vanity" checked><i></i></label>
+          <div class="mono mu" style="font-size:12.5px" id="vanityState"></div>
+        </div>
+      </form>
+      <aside class="lp-side">
+        <div class="card pad grid" style="gap:16px" id="boxPanel">
+          <div class="fsec-h"><b>The box</b><span id="boxState">closed</span></div>
+          <div class="duel" id="duel">
+            <div class="dv" id="dA"><div class="dpic" id="dpA"></div><b id="dsA">$ALIVE</b><span>A · reads 0</span></div>
+            <div class="dbox"><span data-mark></span><i id="dQ">Q—</i></div>
+            <div class="dv" id="dB"><div class="dpic" id="dpB"></div><b id="dsB">$DEAD</b><span>B · reads 1</span></div>
+          </div>
+          <div class="jobline" id="jobLine" hidden></div>
+          <ul class="checks" id="checks"></ul>
+          <button class="btn gold lg block" id="openBtn">Open the box</button>
+          <button class="btn lg block" id="launchBtn" hidden>Launch the survivor</button>
+          <ol class="log" id="log" hidden></ol>
+          <div class="card pad" id="done" hidden></div>
+          <span class="mu" style="font-size:12.5px" id="sideNote">Opening sends one job to IBM Quantum. The launch is built only for the version your qubit picks.</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+<div class="reveal" id="reveal" hidden></div>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-row"><span class="mono" style="font-size:12px;letter-spacing:.14em">BOX · SCHRÖDINGER'S LAUNCHPAD · OPENED BY REAL IBM QUANTUM COMPUTERS</span><nav><a href="/chips">Chips</a><a href="/launch">Launch</a><a href="/board">Board</a><a href="/graveyard">Graveyard</a><a href="/docs">Docs</a><a data-x-link hidden target="_blank" rel="noopener">X</a><a data-pump-link hidden target="_blank" rel="noopener">pump.fun</a></nav></div>
+    <div class="big-word" aria-hidden="true">BOX</div>
+  </div>
+</footer>
+<script src="/vendor/solana-lite.js" defer></script>
+<script type="module" src="/js/launch.js?v=1"></script>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOX</title>
+<meta name="description" content="Schrödinger's launchpad: two coins go in, one comes out. Pair your pump.fun coin with a real qubit on an IBM quantum computer.">
+<meta name="theme-color" content="#050507">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/icon-32.png?v=1"><link rel="icon" type="image/png" sizes="64x64" href="/img/icon-64.png?v=1"><link rel="apple-touch-icon" href="/img/icon-180.png?v=1">
+<meta property="og:title" content="BOX"><meta property="og:description" content="Two coins go in. One comes out. A real quantum computer decides."><meta property="og:image" content="/img/og.png"><meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/img/og.png">
+<link rel="preload" href="/fonts/inter-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/box.css?v=1">
+<script type="importmap">{"imports":{"three":"/vendor/three.module.min.js"}}</script>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="/" aria-label="BOX home"><span data-mark></span>BOX</a>
+  <nav class="links"><a href="/chips" data-page="chips">Chips</a><a href="/launch" data-page="launch">Launch</a><a href="/board" data-page="board">Board</a><a href="/graveyard" data-page="graveyard">Graveyard</a><a href="/#box">The box</a><a href="/#token">$BOX</a><a href="/docs" data-page="docs">Docs</a></nav>
+  <div class="nav-r"><button class="ca" id="caChip" hidden></button><button class="btn wbtn" id="wBtn">Connect</button><button class="burger" aria-label="Menu"><span></span></button></div>
+</div></header>
+<main>
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <span class="kick" data-r><b>●</b>&nbsp; Schrödinger's launchpad · pump.fun</span>
+      <h1 class="hero-ark" aria-label="BOX"><span class="line"><span>BOX</span></span></h1>
+      <p class="lede">Two coins go in. One comes out. Pair your pump.fun coin with a <b class="gold">real qubit</b> on an IBM quantum computer, and that qubit decides which version is born.</p>
+      <div class="hero-cta"><a class="btn gold lg" href="/launch">Open a box <span class="arr">→</span></a><a class="btn lg" href="/chips">See the chips</a></div>
+      <div class="ca-pill" id="caPill" hidden><span class="cp-ic"><span data-mark></span></span><span class="cp-k">$BOX</span><button class="cp-ca" id="cpCa" type="button" aria-label="Copy the $BOX contract address"><span class="cp-full" id="cpFull"></span><span class="cp-short" id="cpShort"></span><i id="cpCopy">Copy</i></button><a class="cp-l" id="cpPump" target="_blank" rel="noopener">pump.fun ↗</a><a class="cp-l" id="cpChart" target="_blank" rel="noopener">Chart ↗</a></div>
+      <div class="live">
+        <div><small>Qubits</small><b id="lvQ">312</b><em id="lvQ2">on 2 IBM chips</em></div>
+        <div><small>Claimed</small><b id="lvC">0</b><em>one coin each</em></div>
+        <div><small>Boxes opened</small><b id="lvO">—</b><em>on real hardware</em></div>
+        <div><small>To holders</small><b id="lvFee">—</b><em>of every trade</em></div>
+      </div>
+    </div>
+    <div class="hero-stage"><div id="stage"></div><div class="stage-fallback" id="stageFb" hidden><span data-mark></span></div></div>
+  </div>
+</section>
+
+<section class="sec" id="how">
+  <div class="wrap">
+    <div class="sec-h" data-r><span class="kick"><b>01</b>&nbsp; How it works</span><h2 class="h2">Two coins go in.<br><span class="gold">One comes out.</span></h2><p>Every launch on BOX is a quantum measurement. Not a random number on a server: one real qubit, on one of IBM's quantum computers, measured once.</p></div>
+    <div class="steps" data-r data-stagger>
+      <div class="card step"><span class="n">01</span><div class="vis v1"><span class="vc a">A</span><span class="vc b">B</span></div><b>Make two coins</b><p>Two names, two tickers, two pictures. Both exist, for now.</p></div>
+      <div class="card step"><span class="n">02</span><div class="vis v2"><i></i><i></i><i class="on"></i><i></i><i></i><i></i><i></i></div><b>Claim a real qubit</b><p>Pick a free qubit on ibm_fez or ibm_marrakesh. 312 exist. One coin each, forever.</p></div>
+      <div class="card step"><span class="n">03</span><div class="vis v3"><span data-mark></span></div><b>Open the box</b><p>Your qubit is put into superposition and measured on IBM's hardware. 0 or 1.</p></div>
+      <div class="card step"><span class="n">04</span><div class="vis v4"><span class="vc a win">A</span><span class="vc b dead">B</span></div><b>One is born</b><p>The winner launches on pump.fun. The other never existed: it goes to the Graveyard.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="chips">
+  <div class="wrap">
+    <div class="sec-h" data-r><span class="kick"><b>02</b>&nbsp; The chips</span><h2 class="h2">312 real qubits.<br>One coin each.</h2><p>Two IBM Heron r2 processors, 156 qubits each, wired in IBM's heavy-hex layout. Every glowing face is a coin that claimed its qubit. Free qubits glow brighter the longer they hold a quantum state.</p></div>
+    <div class="chipgrid" id="chipGrid" data-r data-stagger></div>
+    <div class="row-cta" data-r><a class="btn gold" href="/launch">Claim a qubit <span class="arr">→</span></a><a class="btn" href="/chips">Explore every qubit</a><span class="mu mono" id="chipNote" style="font-size:12px"></span></div>
+  </div>
+</section>
+
+<section class="sec" id="box">
+  <div class="wrap">
+    <div class="sec-h" data-r><span class="kick"><b>03</b>&nbsp; The box</span><h2 class="h2">Opened on real<br>quantum hardware.</h2><p>When you open the box, BOX sends one tiny program to IBM Quantum: put your qubit into an equal superposition, then measure it once. Nobody can choose the answer. Not you, not us.</p></div>
+    <div class="boxgrid" data-r data-stagger>
+      <div class="card pad grid" style="gap:16px">
+        <div class="fsec-h"><b>The circuit</b><span>OpenQASM 3 · IBM Sampler</span></div>
+        <pre class="code" id="qasm">OPENQASM 3.0;
+include "stdgates.inc";
+bit[1] c;
+rz(pi/2) $<b>42</b>;     // Hadamard, in the chip's
+sx $<b>42</b>;           // own native gates:
+rz(pi/2) $<b>42</b>;     // |0⟩ → (|0⟩ + |1⟩)/√2
+c[0] = measure $<b>42</b>; // one shot: 0 or 1</pre>
+        <div class="kv2"><div><small>0</small><b>Version A is born</b></div><div><small>1</small><b>Version B is born</b></div></div>
+        <p class="mu" style="margin:0;font-size:14px">Before the job runs, BOX tags it at IBM with your wallet, your qubit and a fingerprint of both versions. The measurement can only pick between the two you committed. Each wallet gets one opening per qubit per day: no re-rolls.</p>
+      </div>
+      <div class="card pad grid" style="gap:12px">
+        <div class="fsec-h"><b>Live from IBM Quantum</b><span id="opState">connecting…</span></div>
+        <div class="opfeed" id="opFeed" data-lenis-prevent></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="graveyard">
+  <div class="wrap">
+    <div class="sec-h" data-r><span class="kick"><b>04</b>&nbsp; The Graveyard</span><h2 class="h2">The coins that<br>never existed.</h2><p>Every box leaves one coin behind. Its name, ticker and picture are written on-chain next to the coin that was born, so the other timeline is never forgotten.</p></div>
+    <div class="graves" id="gravePrev" data-r data-stagger></div>
+    <div class="row-cta" data-r><a class="btn" href="/graveyard">Visit the Graveyard <span class="arr">→</span></a></div>
+  </div>
+</section>
+
+<section class="sec" id="token">
+  <div class="wrap">
+    <div class="sec-h" data-r><span class="kick"><b>05</b>&nbsp; $BOX</span><h2 class="h2">Every coin that comes out<br>trades against $BOX.</h2><p>Coins born in the box are priced in $BOX (pump.fun Custom Pairs). Buying any of them routes SOL → $BOX → the coin in one transaction, so every buy is also a buy of $BOX. 100% of every coin's creator fees go to its holders (pump.fun Holder Rewards).</p></div>
+    <div class="arkblock" data-r data-stagger>
+      <div class="card pad grid" id="tokMain"></div>
+      <div class="card pad grid" id="tokBuy"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="numbers">
+  <div class="wrap">
+    <div class="sec-h" data-r><span class="kick"><b>06</b>&nbsp; By the numbers</span><h2 class="h2">Small numbers.<br>Real hardware.</h2></div>
+    <div class="nums" id="nums" data-r data-stagger></div>
+  </div>
+</section>
+
+<section class="sec" id="faq">
+  <div class="wrap">
+    <div class="sec-h" data-r><span class="kick"><b>07</b>&nbsp; FAQ</span><h2 class="h2">Questions.</h2></div>
+    <div class="faq" data-r data-stagger>
+      <details><summary>Is it really a quantum computer?</summary><p>Yes. Every box is a job on IBM Quantum Platform, run on ibm_fez or ibm_marrakesh (IBM Heron r2, 156 qubits each). The job puts one physical qubit (the one you claimed) into an equal superposition with a Hadamard gate and measures it once. The result, 0 or 1, decides which version is born. Every coin page shows the IBM job ID and the measured bit.</p></details>
+      <details><summary>Can anyone rig the result?</summary><p>Before the job runs, it is tagged at IBM with your wallet, your qubit and a fingerprint (hash) of both versions, so the measurement can only choose between the two versions you committed. Each wallet gets one opening per qubit per day, so you can't re-roll until you like the answer. The launch transaction is only built for the version the qubit picked.</p></details>
+      <details><summary>What does "claiming a qubit" mean?</summary><p>Your coin is paired with one real physical qubit, for example Q42 on ibm_fez. It's recorded on-chain in your coin's launch transaction, and it's yours: the first coin on a qubit holds it for good. Your coin page shows that qubit's live calibration from IBM: how long it holds a quantum state (T1, T2) and how often it's misread.</p></details>
+      <details><summary>Why is every coin paired to $BOX?</summary><p>Coins born on BOX are priced in $BOX instead of SOL (pump.fun Custom Pairs). Buying any of them goes SOL → $BOX → coin in one transaction, so every buy of a BOX coin is also a buy of $BOX.</p></details>
+      <details><summary>Who gets the creator fees?</summary><p>The coin's holders. Every coin is created with pump.fun Holder Rewards switched on, so 100% of its creator fees go to holders, paid by pump.fun. It is permanent.</p></details>
+      <details><summary>What happens to the version that loses?</summary><p>It never launches. Right after your coin is born you sign one small record that puts the measurement and the other version's name, ticker and picture on-chain. That's the Graveyard.</p></details>
+      <details><summary>How big can the dev buy be?</summary><p>Up to 1 SOL, bought right after the launch through $BOX.</p></details>
+      <details><summary>What does it cost?</summary><p>Launching is free on BOX. You pay pump.fun's normal fees, Solana network fees and a little rent, and every transaction is simulated before your wallet signs it. BOX never holds your keys.</p></details>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-row"><span class="mono" style="font-size:12px;letter-spacing:.14em">BOX · SCHRÖDINGER'S LAUNCHPAD · OPENED BY REAL IBM QUANTUM COMPUTERS</span><nav><a href="/chips">Chips</a><a href="/launch">Launch</a><a href="/board">Board</a><a href="/graveyard">Graveyard</a><a href="/docs">Docs</a><a data-x-link hidden target="_blank" rel="noopener">X</a><a data-pump-link hidden target="_blank" rel="noopener">pump.fun</a></nav></div>
+    <div class="big-word" aria-hidden="true">BOX</div>
+  </div>
+</footer>
+<script src="/vendor/solana-lite.js" defer></script>
+<script type="module" src="/js/home.js?v=1"></script>
+</body>
+</html>

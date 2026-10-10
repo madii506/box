@@ -1,0 +1,20 @@
+{
+  "name": "box",
+  "private": true,
+  "description": "BOX: Schr\u00f6dinger's launchpad. Two coins go in, one comes out: a real IBM quantum computer opens the box. Every coin is paired with a real qubit and with $BOX.",
+  "engines": {
+    "node": "22.x"
+  },
+  "dependencies": {
+    "@pump-fun/pump-sdk": "4.0.0",
+    "@solana/web3.js": "^1.98.2",
+    "@solana/spl-token": "^0.4.13",
+    "bn.js": "^5.2.2",
+    "bs58": "^6.0.0"
+  },
+  "overrides": {
+    "rpc-websockets": {
+      "uuid": "^11.1.0"
+    }
+  }
+}

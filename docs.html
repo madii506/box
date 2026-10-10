@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BOX · Docs</title>
+<meta name="description" content="How BOX works: the quantum circuit, the commitment, the qubit claim, the launch and the record.">
+<meta name="theme-color" content="#050507">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/icon-32.png?v=1"><link rel="icon" type="image/png" sizes="64x64" href="/img/icon-64.png?v=1"><link rel="apple-touch-icon" href="/img/icon-180.png?v=1">
+<meta property="og:title" content="BOX · Docs"><meta property="og:description" content="Two coins go in. One comes out. A real quantum computer decides."><meta property="og:image" content="/img/og.png"><meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="/img/og.png">
+<link rel="preload" href="/fonts/inter-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/css/box.css?v=1">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="/" aria-label="BOX home"><span data-mark></span>BOX</a>
+  <nav class="links"><a href="/chips" data-page="chips">Chips</a><a href="/launch" data-page="launch">Launch</a><a href="/board" data-page="board">Board</a><a href="/graveyard" data-page="graveyard">Graveyard</a><a href="/#box">The box</a><a href="/#token">$BOX</a><a href="/docs" data-page="docs">Docs</a></nav>
+  <div class="nav-r"><button class="ca" id="caChip" hidden></button><button class="btn wbtn" id="wBtn">Connect</button><button class="burger" aria-label="Menu"><span></span></button></div>
+</div></header>
+<main>
+<section class="lp">
+  <div class="wrap docs">
+    <div class="sec-h" style="margin-bottom:28px" data-r><span class="kick">Docs</span><h1 class="h2">How BOX works.</h1><p>Everything BOX does, in order, with the real values it reads right now.</p></div>
+    <div class="docgrid">
+      <nav class="toc" id="toc"><a href="#d-flow">The flow</a><a href="#d-quantum">The quantum part</a><a href="#d-fair">Why it can't be rigged</a><a href="#d-qubit">Your qubit</a><a href="#d-launch">The launch</a><a href="#d-record">The record</a><a href="#d-fees">Fees</a><a href="#d-api">API</a></nav>
+      <div class="card pad doc" id="doc">
+        <section id="d-flow"><h2>The flow</h2><ol><li>You make two versions of your coin: A and B (name, ticker, picture). Both pictures and metadata go to pump.fun's IPFS.</li><li>You pick a free qubit on one of the chips.</li><li>You open the box: BOX submits one job to IBM Quantum for that qubit.</li><li>When IBM returns the measurement, 0 means A, 1 means B.</li><li>Your wallet signs the launch of the winner on pump.fun, then one small record transaction.</li></ol></section>
+        <section id="d-quantum"><h2>The quantum part</h2><p>Chips: <b data-v="backends">ibm_fez, ibm_marrakesh</b> (IBM Heron r2, 156 qubits each). IBM connection: <b data-v="ibm">…</b>.</p><pre class="code">OPENQASM 3.0;
+include "stdgates.inc";
+bit[1] c;
+rz(pi/2) $q;
+sx $q;
+rz(pi/2) $q;
+c[0] = measure $q;</pre><p>rz·sx·rz is a Hadamard gate written in the chip's native gates. It puts the qubit into an equal superposition of 0 and 1. The circuit runs as an IBM Sampler job with one shot on the exact physical qubit you claimed. Real hardware is not perfect: a qubit's readout error (shown on its page) slightly biases the result, and that's part of the physics.</p></section>
+        <section id="d-fair"><h2>Why it can't be rigged</h2><ul><li>The job is tagged at IBM, before it runs, with your wallet, your qubit and a SHA-256 fingerprint of each version (name | ticker | metadata link).</li><li>The launch transaction is only built for the version whose fingerprint matches the measured bit.</li><li>One opening per wallet, per qubit, per 24 hours: no re-rolling.</li><li>Every coin page re-checks its measurement against IBM and shows the job ID.</li></ul></section>
+        <section id="d-qubit"><h2>Your qubit</h2><p>The launch transaction carries a memo <code>box:v1:TICKER:chip:qubit</code> and lists the BOX registry address (<code data-v="registry">…</code>), so every claim can be rebuilt from the chain. The first coin on a qubit holds it. Qubit pages show IBM's latest calibration: T1 (energy relaxation), T2 (dephasing), readout error.</p></section>
+        <section id="d-launch"><h2>The launch</h2><p>Every coin is created with pump.fun's create_v2: quote mint $BOX (Custom Pairs) and Holder Rewards on, so 100% of creator fees go to holders. Dev buy: up to <b data-v="devMaxSol">1</b> SOL, bought right after through SOL → $BOX → coin.</p></section>
+        <section id="d-record"><h2>The record</h2><p>Right after the launch, the creator signs one memo: <code>boxr:v1:mint:ibmJob:bit:otherTicker:otherMetadata</code>. It puts the measurement and the coin that never existed on-chain. That's the Graveyard.</p></section>
+        <section id="d-fees"><h2>Fees</h2><dl class="kv"><dt>pump.fun protocol</dt><dd><b data-v="protocol">…</b> of each trade</dd><dt>creator fee</dt><dd><b data-v="creator">…</b> of each trade, paid to holders</dd><dt>BOX</dt><dd>free to launch</dd><dt>network</dt><dd>normal Solana fees, shown before you sign</dd></dl></section>
+        <section id="d-api"><h2>API</h2><p>Everything the site shows comes from one public API: <code>/api/config</code>, <code>/api/chips</code>, <code>/api/coins</code>, <code>/api/coin?m=</code>, <code>/api/box?id=</code>, <code>/api/openings</code>, <code>/api/graveyard</code>, <code>/api/token</code>.</p></section>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-row"><span class="mono" style="font-size:12px;letter-spacing:.14em">BOX · SCHRÖDINGER'S LAUNCHPAD · OPENED BY REAL IBM QUANTUM COMPUTERS</span><nav><a href="/chips">Chips</a><a href="/launch">Launch</a><a href="/board">Board</a><a href="/graveyard">Graveyard</a><a href="/docs">Docs</a><a data-x-link hidden target="_blank" rel="noopener">X</a><a data-pump-link hidden target="_blank" rel="noopener">pump.fun</a></nav></div>
+    <div class="big-word" aria-hidden="true">BOX</div>
+  </div>
+</footer>
+<script src="/vendor/solana-lite.js" defer></script>
+<script type="module" src="/js/docs.js?v=1"></script>
+</body>
+</html>
